@@ -56,14 +56,38 @@
         return;
       }
     });
+    $(".gallery-item").on("keydown", function(event) {
+      if (event.key === "Enter" && options.lightBox && $(this).prop("tagName") === "IMG") {
+        $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
+      } else {
+        return;
+      }
+    });
 
     $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
+    $(".gallery").on("keydown", ".nav-link", function(event){
+      if(event.key === "Enter"){    
+        $.fn.mauGallery.methods.filterByTag.call(this);
+      }
+    })
+      
+    
     $(".gallery").on("click", ".mg-prev", () =>
       $.fn.mauGallery.methods.prevImage(options.lightboxId)
     );
+    $(".gallery").on("keydown", ".mg-prev", function(event){
+      if(event.key === "Enter"){
+        $.fn.mauGallery.methods.prevImage(options.lightboxId)
+      }
+    });
     $(".gallery").on("click", ".mg-next", () =>
       $.fn.mauGallery.methods.nextImage(options.lightboxId)
     );
+    $(".gallery").on("keydown", ".mg-next", function(event){
+      if(event.key === "Enter"){
+        $.fn.mauGallery.methods.nextImage(options.lightboxId)
+      }
+    });
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
@@ -204,13 +228,13 @@
                         <div class="modal-body">
                             ${
                               navigation
-                                ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
+                                ? '<div class="mg-prev" tabindex="0" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
                                 : '<span style="display:none;" />'
                             }
                             <img class="lightboxImage img-fluid" alt="Contenu de l'image affichée dans la modale au clique"/>
                             ${
                               navigation
-                                ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
+                                ? '<div class="mg-next" tabindex="0" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
                                 : '<span style="display:none;" />'
                             }
                         </div>
@@ -220,12 +244,12 @@
     },
     showItemTags(gallery, position, tags) {
       var tagItems =
-        '<li class="nav-item"><span class="nav-link active-tag"  data-images-toggle="all">Tous</span></li>';
+        '<li role="option" class="nav-item"><span class="nav-link active-tag" tabindex="0" data-images-toggle="all">Tous</span></li>';
       $.each(tags, function(index, value) {
-        tagItems += `<li class="nav-item active">
-                <span class="nav-link"  data-images-toggle="${value}">${value}</span></li>`;
+        tagItems += `<li role="option" class="nav-item active">
+                <span class="nav-link" tabindex="0" data-images-toggle="${value}">${value}</span></li>`;
       });
-      var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
+      var tagsRow = `<ul role="listbox" class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
 
       if (position === "bottom") {
         gallery.append(tagsRow);
