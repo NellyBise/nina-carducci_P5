@@ -62,7 +62,7 @@ body {
 }
 
 .picture {
-	flex: 1;
+	width: 33%;
 	margin: 0 20px;
 	z-index: 0;
 }
@@ -70,8 +70,9 @@ body {
 .picture img {
 	width: 100%;
 }
+
 #about-me {
-	flex: 2
+	width: 66%
 }
 .about-me__title {
 	margin-top: 1em;
@@ -218,7 +219,7 @@ body {
 	z-index: -1;
 }
 .form-container {
-	flex : 2;
+	width: 66%;
 
 }
 form {
@@ -252,7 +253,7 @@ input[type="submit"] {
 
 @media all and (max-width: 1180px) {
 	.picture {
-		flex : 2;
+		width : 50%;
 	}
 	#about, #contact .container {
 		align-items: center;
